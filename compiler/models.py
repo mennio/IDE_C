@@ -29,3 +29,8 @@ class CompileWorkflow(models.Model):
     status = models.CharField(max_length=300,
                               choices=workflow_status,
                               default=WorkflowStatus.INITIALIZED)
+
+    wf_log_compilation = models.TextField(blank=True, null=True)
+    wf_exec_stdout = models.TextField(blank=True, null=True)
+    wf_exec_stderr = models.TextField(blank=True, null=True)
+    wf_exec_status_code = models.IntegerField(blank=True, null=True)
