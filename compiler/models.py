@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from dataclasses import dataclass
 
-#status
+
+# status
 @dataclass
 class WorkflowStatus:
     INITIALIZED = "INITIALIZED"
@@ -11,7 +12,8 @@ class WorkflowStatus:
     EXECUTION_ERROR = "EXECUTION_ERROR"
     EXECUTED = "EXECUTED"
 
-#création de 4 champs : created, user, code source et status
+
+# création de 4 champs : created, user, code source et status
 class CompileWorkflow(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -25,11 +27,12 @@ class CompileWorkflow(models.Model):
         (WorkflowStatus.EXECUTED, "Executed"),
     )
 
-#status de départ
+    # status de départ
     status = models.CharField(max_length=300,
                               choices=workflow_status,
                               default=WorkflowStatus.INITIALIZED)
 
+    #status
     wf_log_compilation = models.TextField(blank=True, null=True)
     wf_exec_stdout = models.TextField(blank=True, null=True)
     wf_exec_stderr = models.TextField(blank=True, null=True)

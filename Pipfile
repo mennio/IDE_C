@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 django-filter = "*"
+djangorestframework = "*"
+markdown = "*"
+drf-yasg = {extras = ["validation"], version = "*"}
 
 [dev-packages]
 
