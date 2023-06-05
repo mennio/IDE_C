@@ -9,6 +9,9 @@ django-filter = "*"
 djangorestframework = "*"
 markdown = "*"
 drf-yasg = {extras = ["validation"], version = "*"}
+celery = "*"
+redis = "*"
+django-celery-results = "*"
 
 [dev-packages]
 
