@@ -61,7 +61,6 @@ def gcc_compile(wf_id: int):
         print("compile error")
         CompileWorkflow.objects.filter(id=wf_id).update(
             wf_log_compilation=gcc_logs,
-            wf_exec_status_code=p.returncode,
             status=WorkflowStatus.COMPILING_ERROR,
             wf_compiled_binary=None
         )
@@ -72,7 +71,6 @@ def gcc_compile(wf_id: int):
             binary_contents = compiled_file.read()
         CompileWorkflow.objects.filter(id=wf_id).update(
             wf_log_compilation=gcc_logs,
-            wf_exec_status_code=0,
             status=WorkflowStatus.COMPILED_SUCCESS,
             wf_compiled_binary=binary_contents
         )
@@ -106,3 +104,23 @@ def run_binary(wf_id: int):
             "-c",
             f"{compiled_binary_file}"
         ], stdout=PIPE, stderr=STDOUT)
+    # wait until done and catch GCC logs
+    exec_logs, err = p.communicate()
+    exec_logs = exec_logs.decode('utf-8')
+
+    # persist status on database
+    if p.returncode:
+        # if error
+        print("exec error")
+        CompileWorkflow.objects.filter(id=wf_id).update(
+            wf_exec_logs=exec_logs,
+            wf_exec_status_code=p.returncode,
+            status=WorkflowStatus.EXECUTION_ERROR
+        )
+    else:
+        print("exec success")
+        CompileWorkflow.objects.filter(id=wf_id).update(
+            wf_exec_logs=exec_logs,
+            wf_exec_status_code=0,
+            status=WorkflowStatus.EXECUTED
+        )

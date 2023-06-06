@@ -20,7 +20,7 @@ class WorkflowStatus:
 class CompileWorkflow(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    code_source = models.TextField(blank=False, null=False)
+    source_code = models.TextField(blank=False, null=False)
 
     workflow_status = (
         (WorkflowStatus.INITIALIZED, "Initialized"),
@@ -40,7 +40,6 @@ class CompileWorkflow(models.Model):
 
     #status
     wf_log_compilation = models.TextField(blank=True, null=True)
-    wf_exec_stdout = models.TextField(blank=True, null=True)
-    wf_exec_stderr = models.TextField(blank=True, null=True)
+    wf_exec_logs = models.TextField(blank=True, null=True)
     wf_exec_status_code = models.IntegerField(blank=True, null=True)
     wf_compiled_binary = models.BinaryField(blank=True, null=True)
