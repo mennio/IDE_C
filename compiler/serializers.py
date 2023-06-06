@@ -5,15 +5,13 @@ from compiler.models import CompileWorkflow
 class CompileWorkflowSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompileWorkflow
-        fields = "__all__"
+        exclude = ["wf_compiled_binary"]
         read_only_fields = [
             "created",
             "user",
-            "code_source",
             "status",
             "wf_log_compilation",
-            "wf_exec_stdout",
-            "wf_exec_stderr",
+            "wf_exec_logs",
             "wf_exec_status_code",
         ]
 
