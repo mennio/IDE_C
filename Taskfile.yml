@@ -15,6 +15,13 @@ tasks:
     aliases:
       - rs
 
+  run-prod-server:
+    desc: run prod server
+    cmds:
+      - gunicorn --bind 0.0.0.0:8000 code_builder.wsgi
+    aliases:
+      - rps
+
   update-database:
     desc: make migration and migrate
     cmds:
@@ -24,10 +31,15 @@ tasks:
     aliases:
       - upd
 
+  run-controller:
+    desc: run compile controller
+    cmds:
+      - python manage.py run_controller
+
   start-redis-server:
     desc: start redis server
     cmds:
-      - docker run -d -p 6380:6379 redis || true
+      - docker run -d -p 6379:6379 redis || true
     aliases:
       - redis
 
@@ -35,3 +47,10 @@ tasks:
     desc: start celery worker
     cmds:
       - celery -A code_builder worker -l INFO
+
+  build-docker-image:
+    desc: build docker image
+    cmds:
+      - docker build -t code-builder:latest -f Dockerfile .
+    aliases:
+      - b

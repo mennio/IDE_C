@@ -9,11 +9,16 @@ django-filter = "*"
 djangorestframework = "*"
 markdown = "*"
 drf-yasg = {extras = ["validation"], version = "*"}
+drf-spectacular = "*"
 celery = "*"
 redis = "*"
 django-celery-results = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
+gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
+ipython = "*"
 
 [requires]
-python_version = "3.11"
+python_version = "3.10"

@@ -14,4 +14,3 @@ class CompileWorkflowSerializer(serializers.ModelSerializer):
             "wf_exec_logs",
             "wf_exec_status_code",
         ]
-
